@@ -129,8 +129,62 @@
         bar1.style.transform = "translate("+ barX + "px, 0px)";
         bar2.style.transform = "translate("+ barX + "px, 0px)";
     });
+
+
+    //left right button icons
+    let leftButtonIcon = document.getElementById("left-button-icon");
+    let leftActivate = false;
+    let idLeft;
+    leftButtonIcon.addEventListener("mousedown", function(){
+        leftActivate = true;
+        idLeft = setInterval(moveLeftByLeftButton, 30);
+    });
+    leftButtonIcon.addEventListener("mouseup", function(){
+        leftActivate = false;
+    });
+    leftButtonIcon.addEventListener("mouseout", function(){
+        leftActivate = false;
+    });
+
+    function moveLeftByLeftButton(){
+        barX -= (barChange + level*2);
+        if(bar1.getBoundingClientRect().left < 0){
+            barX += (barChange + level*2);
+        }
+        bar1.style.transform = "translate("+ barX + "px, 0px)";
+        bar2.style.transform = "translate("+ barX + "px, 0px)";
+        if(!leftActivate){
+            clearInterval(idLeft);
+            return;
+        }
+    }
     
-    
+    let idRight;
+    let rightButtonIcon = document.getElementById("right-button-icon");
+    let rightActivate = false;
+    rightButtonIcon.addEventListener("mousedown", function(){
+        rightActivate = true;
+        idRight = setInterval(moveRightByRightButton, 30);
+    });
+    rightButtonIcon.addEventListener("mouseup", function(){
+        rightActivate = false;
+    });
+    rightButtonIcon.addEventListener("mouseout", function(){
+        rightActivate = false;
+    });
+
+    function moveRightByRightButton(){
+        barX += (barChange + level*2);
+        if(bar1.getBoundingClientRect().right >= window.innerWidth - 10 - level*2){
+            barX -= (barChange + level*2);
+        }
+        bar1.style.transform = "translate("+ barX + "px, 0px)";
+        bar2.style.transform = "translate("+ barX + "px, 0px)";
+        if(!rightActivate){
+            clearInterval(idRight);
+            return;
+        }
+    }
     
     
     
